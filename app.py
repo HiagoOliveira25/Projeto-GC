@@ -10,7 +10,6 @@ import pandas as pd
 
 dados = pd.read_excel('./grade_curricular.xlsx')
 dados.fillna('',inplace=True)
-print(dados)
 
 mt_facil = 'light'
 facil = 'info'
