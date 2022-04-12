@@ -173,4 +173,4 @@ def modo_de_visualizacao(mv):
 app.layout = html.Div(layout)
 
 if __name__ == "__main__":
-    app.run_server(debug=True)
+    app.run_server(debug=False)
