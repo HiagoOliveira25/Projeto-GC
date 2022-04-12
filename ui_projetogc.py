@@ -23,10 +23,9 @@ tema_claro = dbc.themes.FLATLY
 tema_escuro = dbc.themes.DARKLY
 
 app = Dash(__name__, external_stylesheets=[tema_claro])
-children_page = []
-# inputs = []
-# outputs = []
+server = app.server
 
+children_page = []
 for i in range(11):
     children_p = []
     for index, dado in dados.iterrows():
@@ -48,19 +47,9 @@ for i in range(11):
                             dbc.Col([html.Div(f'Pré-requisistos: '), html.Div(f'{dado["Pre-requisitos"]}')]),
                             dbc.Col([html.Div(f'Co-requisitos: '),html.Div(f'{dado["Co-requisitos"]}')]),
                             ]),
-                        # dbc.Button(
-                        #     'click para mais informações',
-                        #     color = 'dark', 
-                        #     id = f'btn_{dado["Referencia"]}',
-                        #     n_clicks = 0
-                        #     )
                     ], className="d-grid gap-2")
                 ], color = color_df, inverse=inverte),width = 4, class_name='mb-4'),
-                # dbc.Toast('funcionou',header='detalhes:', id = f'toast_{dado["Referencia"]}')
                 )
-
-            # inputs.append(Input(f'btn_{dado["Referencia"]}', 'n_clicks'))
-            # outputs.append(dict(saida = Output(f'toast_{dado["Referencia"]}', 'children')))
     
     children_page.append(dbc.Row(dbc.Card([
         dbc.CardHeader(html.H2(html.Strong(f'{i}º PERÍODO'))),
@@ -160,39 +149,13 @@ legend_2 = html.Div([
         dbc.CardFooter([html.H6('PROJETO'), html.P('CAMEC - UFPB')],style={'text-align':'center'})
     ],style={'height':'100%'})],style={'position':'fixed'}, className='mb-4')
             
-
-
-
-layout = html.Div([
-    
+layout = html.Div([    
     dbc.Row([
         dbc.Col('', width = 10, id='ver'),
         dbc.Col(legend_2,width = 2)
-    ]),
+        ])
     ])
 
-#@callback(outputs, inputs)
-#def detalhes(*args):
-#    if args is None:
-#        raise exceptions.PreventUpdate
-#    ctx = callback_context
-
-#    if not ctx.triggered:
-#        button_id = 'No clicks yet'
-#    else:
-#        button_id = ctx.triggered[0]['prop_id'].split('.')[0]
-
-#    table_headers = [html.Th(f'Button {i+1}') for i in range(len(args))]
-#    table_headers.append('Click mais recente')
-
-#    table_itens = [html.Td(args[i] or 0) for i in range(len(args))]
-#    table_itens.append(html.Td(button_id))
-#    return html.Div([
-#        html.Table([
-#            html.Tr(table_headers),
-#            html.Tr(table_itens)
-#        ]),
-#    ])
 @app.callback(
     Output('ver', 'children'),
     Input('mv_1', 'value'))
@@ -206,24 +169,7 @@ def modo_de_visualizacao(mv):
         return ap_ov
 
 
-# @callback(
-#     Output(outputs),
-#     Input(inputs)
-# )
-# def btn_details(*args):
-#     if args is None:
-#         raise exceptions.PreventUpdate
-#     ctx = callback_context
-
-#     if not ctx.triggered:
-#         button_id = 'No clicks yet'
-#     else:
-#         button_id = ctx.triggered[0]['prop_id'].split('.')[0]
-
-    
-
 app.layout = html.Div(layout)
 
 if __name__ == "__main__":
-    app.run_server(debug=True)
-
+    app.run_server(debug=False)
