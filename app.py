@@ -1,6 +1,5 @@
 from curses import color_content
 from operator import invert
-from turtle import width
 import os
 from dash import html, Dash, Input, Output,callback, callback_context, exceptions
 import dash_bootstrap_components as dbc
