@@ -24,17 +24,16 @@ tema_escuro = dbc.themes.DARKLY
 
 app = Dash(__name__, external_stylesheets=[tema_claro])
 children_page = []
-inputs = []
-outputs = []
-saida = []
-j = 0
+# inputs = []
+# outputs = []
+
 for i in range(11):
     children_p = []
     for index, dado in dados.iterrows():
         if dado['Periodo'] == i:
             color_df, inverte = card_color(dado['Dificuldade'],na,mt_facil, facil, normal, dificil, mt_dificil)
 
-            children_p.append([dbc.Col(
+            children_p.append(dbc.Col(
                 dbc.Card([
                     dbc.CardHeader([
                         html.Div(f"{dado['Disciplina']}"),
@@ -58,7 +57,7 @@ for i in range(11):
                     ], className="d-grid gap-2")
                 ], color = color_df, inverse=inverte),width = 4, class_name='mb-4'),
                 # dbc.Toast('funcionou',header='detalhes:', id = f'toast_{dado["Referencia"]}')
-                ])
+                )
 
             # inputs.append(Input(f'btn_{dado["Referencia"]}', 'n_clicks'))
             # outputs.append(dict(saida = Output(f'toast_{dado["Referencia"]}', 'children')))
