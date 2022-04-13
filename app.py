@@ -22,6 +22,7 @@ tema_claro = dbc.themes.FLATLY
 tema_escuro = dbc.themes.DARKLY
 
 app = Dash(__name__, external_stylesheets=[tema_claro])
+app.title = 'Mecflux'
 server = app.server
 
 children_page = []
@@ -65,8 +66,10 @@ for i in a:
     for index, dado in dados.iterrows():
         if dado['Periodo'] == i and dado['Tipo'] != 'OP':
             color_df, inverte = card_color(dado['Dificuldade'],na,mt_facil,facil,normal, dificil, mt_dificil)
-            card = dbc.Card(
-                [html.Div(dado['Referencia']),html.Div(dado['Disciplina']), html.Div(dado['Creditos'])], 
+            card = dbc.Card(dbc.Row([
+                dbc.Col([html.Strong('Pré:'), dado['Pre-requisitos']],width = 2,style={'font-size':'0.5rem'}),
+                dbc.Col([html.Div(dado['Referencia']),html.Div(dado['Disciplina']), html.Div(dado['Creditos'])], width = 8),
+                dbc.Col([html.Strong('Co:'), dado['Co-requisitos']],width = 2,style={'font-size':'0.5rem'})]), 
                 color=color_df, 
                 inverse=inverte,
                 style={'font-size':'0.75rem', 'text-align':'center'},
@@ -75,8 +78,10 @@ for i in a:
 
         elif dado['Periodo'] == 0 and i == 0:
             color_df, inverte = card_color(dado['Dificuldade'], na, mt_facil, facil, normal, dificil, mt_dificil)
-            card = dbc.Card(
-                [html.Div(dado['Referencia']),html.Div(dado['Disciplina']), html.Div(dado['Creditos'])], 
+            card = dbc.Card(dbc.Row([
+                dbc.Col([html.Strong('Pré:'), dado['Pre-requisitos']],width = 2,style={'font-size':'0.5rem'}),
+                dbc.Col([html.Div(dado['Referencia']),html.Div(dado['Disciplina']), html.Div(dado['Creditos'])], width = 8),
+                dbc.Col([html.Strong('Co:'), dado['Co-requisitos']],width = 2,style={'font-size':'0.5rem'})]), 
                 color=color_df, 
                 inverse=inverte,
                 style={'font-size':'0.75rem', 'text-align':'center'},
@@ -92,8 +97,10 @@ col_overview = []
 for index, dado in dados.iterrows():
     if dado['Periodo'] != 0 and dado['Tipo'] == 'OP':
         color_df, inverte = card_color(dado['Dificuldade'],na,mt_facil, facil, normal, dificil, mt_dificil)
-        card = dbc.Card(
-            [html.Div(dado['Referencia']),html.Div(dado['Disciplina']), html.Div(dado['Creditos'])], 
+        card = dbc.Card(dbc.Row([
+                dbc.Col([html.Strong('Pré:'), dado['Pre-requisitos']],width = 2,style={'font-size':'0.5rem'}),
+                dbc.Col([html.Div(dado['Referencia']),html.Div(dado['Disciplina']), html.Div(dado['Creditos'])], width = 8),
+                dbc.Col([html.Strong('Co:'), dado['Co-requisitos']],width = 2,style={'font-size':'0.5rem'})]), 
             color=color_df, 
             inverse=inverte,
             style={'font-size':'0.75rem', 'text-align':'center'}, 
@@ -145,7 +152,7 @@ legend_2 = html.Div([
                 ], class_name='mb-4')
             ]),
         ], class_name='mb-2'),
-        dbc.CardFooter([html.H6('PROJETO'), html.P('CAMEC - UFPB')],style={'text-align':'center'})
+        dbc.CardFooter([html.H6('PROJETO'), html.Strong('CAMEC - UFPB')],style={'text-align':'center'})
     ],style={'height':'100%'})],style={'position':'fixed'}, className='mb-4')
             
 layout = html.Div([    
